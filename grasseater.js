@@ -1,50 +1,13 @@
-class GrassEater {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
+var LivingCreature = require("./LivingCreature")
+module.exports = class GrassEater extends LivingCreature {
+    constructor(x, y, index) {
+        super(x, y, index);
         this.energy = 30;
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
-            [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
-        ];
-    }
-    chooseCell(char) {
-        let arr = [];
-
-        for (let index = 0; index < this.directions.length; index++) {
-            let x = this.directions[index][0];
-            let y = this.directions[index][1];
-
-            if (x >= 0 && y >= 0 && x < matrix[0].length && y < matrix.length) {
-                if (matrix[y][x] == char) {
-                    arr.push(this.directions[index])
-                }
-            }
-
-        }
-
-        return arr;
-    }
-    getNewDirections() {
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
-            [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
-        ];
     }
     mul() {
-        let newCell = random(this.chooseCell(0));
+        var cells = this.chooseCell(0);
+        var rand = Math.floor(Math.random()* rand)
+        var newCell = cells[rand]
         if (newCell) {
             let x = newCell[0];
             let y = newCell[1];
@@ -64,7 +27,9 @@ class GrassEater {
     }
     eat() {
         this.getNewDirections();
-        let newCell = random(this.chooseCell(1));
+        var cells = this.chooseCell(1);
+        var rand = Math.floor(Math.random()* rand)
+        var newCell = cells[rand]
         if (newCell) {
             this.energy += 5;
             let x = newCell[0];
@@ -90,7 +55,9 @@ class GrassEater {
     }
     move() {
         this.energy--;
-        let newCell = random(this.chooseCell(0));
+        var cells = this.chooseCell(0);
+        var rand = Math.floor(Math.random()* rand)
+        var newCell = cells[rand]
         if (newCell) {
             let x = newCell[0];
             let y = newCell[1];

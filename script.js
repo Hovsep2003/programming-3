@@ -1,17 +1,21 @@
-
-
+var length = 20
+var side = 20
+var matrix = [];
+var socket = io();
 function setup() {
-
-  
-    createCanvas(matrix[0].length * side, matrix.length * side);
+    createCanvas(length * side, length * side);
     background('grey');
     frameRate(5);
-
     noStroke()
 }
 
-function draw() {
-
+socket.on("matrix", drawm)
+function pahelmatrican(m) {
+    matrix = m;
+}
+function drawm(matrix) {
+    console.log(matrix);
+    
     for (let y = 0; y < matrix.length; y++) {
         const element = matrix[y];
         for (let x = 0; x < element.length; x++) {
@@ -37,19 +41,5 @@ function draw() {
             rect(x * side, y * side, side, side)
         }
     }
-    for (let index = 0; index < grassArr.length; index++) {
-        grassArr[index].mul();
-    }
-    for (let index = 0; index < waterArr.length; index++) {
-        waterArr[index].mul();                                                      
-    }
-    for (let index = 0; index < grassEaterArr.length; index++) {
-        grassEaterArr[index].eat();
-    }
-    for (let index = 0; index < predatorArr.length; index++) {
-        predatorArr[index].eat();
-    }
-    for (let index = 0; index < fireArr.length; index++) {
-        fireArr[index].eat();
-    }
+
 }

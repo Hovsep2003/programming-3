@@ -6,24 +6,27 @@ var io = require('socket.io')(server);
 app.use(express.static("."));
 
 app.get('/', function (req, res) {
-   res.redirect('index.html');
+    res.redirect('index copy.html');
 });
 
 server.listen(3000);
+
 let Grass = require("./grass")
 let GrassEater = require("./grasseater")
 let Predator = require("./predator")
 let Water = require("./water")
 let Fire = require("./fire")
-let matrix = [];
-let side = 20;
-let grassArr = [];
-let grassEaterArr = [];
-let predatorArr = [];
-let waterArr = [];
-let fireArr = []
-matrixGenerator(30, 15, 10, 3, 4, 4);
+
+ grassArr = [];
+grassEaterArr = [];
+ predatorArr = [];
+ waterArr = [];
+ fireArr = [];
+
+matrix = matrixGenerator(30, 15, 10, 3, 4, 4);
+
 function matrixGenerator(matrixSize, grassCount, grassEaterCount, predatorCount, waterCount, fireCount) {
+    var matrix = [];
     for (let index = 0; index < matrixSize; index++) {
         matrix[index] = [];
         for (let i = 0; i < matrixSize; i++) {
@@ -31,30 +34,31 @@ function matrixGenerator(matrixSize, grassCount, grassEaterCount, predatorCount,
         }
     }
     for (let index = 0; index < grassCount; index++) {
-        let x = Math.floor(random(0, matrixSize));
-        let y = Math.floor(random(0, matrixSize));
+        let x = Math.floor(Math.random() * matrixSize);
+        let y = Math.floor(Math.random() * matrixSize);
         matrix[y][x] = 1;
     }
     for (let index = 0; index < grassEaterCount; index++) {
-        let x = Math.floor(random(0, matrixSize));
-        let y = Math.floor(random(0, matrixSize));
+        let x = Math.floor(Math.random() * matrixSize);
+        let y = Math.floor(Math.random() * matrixSize);
         matrix[y][x] = 2;
     }
     for (let index = 0; index < predatorCount; index++) {
-        let x = Math.floor(random(0, matrixSize));
-        let y = Math.floor(random(0, matrixSize));
+        let x = Math.floor(Math.random() * matrixSize);
+        let y = Math.floor(Math.random() * matrixSize);
         matrix[y][x] = 3;
     }
     for (let index = 0; index < waterCount; index++) {
-        let x = Math.floor(random(0, matrixSize));
-        let y = Math.floor(random(0, matrixSize));
+        let x = Math.floor(Math.random() * matrixSize);
+        let y = Math.floor(Math.random() * matrixSize);
         matrix[y][x] = 4;
     }
     for (let index = 0; index < fireCount; index++) {
-        let x = Math.floor(random(0, matrixSize));
-        let y = Math.floor(random(0, matrixSize));
+        let x = Math.floor(Math.random() * matrixSize);
+        let y = Math.floor(Math.random() * matrixSize);
         matrix[y][x] = 5;
     }
+    return matrix
 }
 
 for (let y = 0; y < matrix.length; y++) {
@@ -82,3 +86,25 @@ for (let y = 0; y < matrix.length; y++) {
     }
 }
 
+
+function main() {
+    
+    for (let index = 0; index < grassArr.length; index++) {
+        grassArr[index].mul();
+    }
+    for (let index = 0; index < waterArr.length; index++) {
+        waterArr[index].mul();
+    }
+    for (let index = 0; index < grassEaterArr.length; index++) {
+        grassEaterArr[index].eat();
+    }
+    for (let index = 0; index < predatorArr.length; index++) {
+        predatorArr[index].eat();
+    }
+    for (let index = 0; index < fireArr.length; index++) {
+        fireArr[index].eat();
+    }
+    io.sockets.emit("matrix", matrix);
+}
+
+setInterval(main, 1000);
