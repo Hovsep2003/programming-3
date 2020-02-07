@@ -6,24 +6,24 @@ var io = require('socket.io')(server);
 app.use(express.static("."));
 
 app.get('/', function (req, res) {
-    res.redirect('index copy.html');
+    res.redirect('index.html');
 });
 
 server.listen(3000);
 
-let Grass = require("./grass")
-let GrassEater = require("./grasseater")
-let Predator = require("./predator")
-let Water = require("./water")
-let Fire = require("./fire")
-
- grassArr = [];
+let Grass = require("./Grass")
+let GrassEater = require("./GrassEater")
+let Predator = require("./Predator")
+let Water = require("./Water")
+let Fire = require("./Fire")
+let interval = 1000;
+grassArr = [];
 grassEaterArr = [];
- predatorArr = [];
- waterArr = [];
- fireArr = [];
+predatorArr = [];
+waterArr = [];
+fireArr = [];
 
-matrix = matrixGenerator(30, 15, 10, 3, 4, 4);
+matrix = matrixGenerator(30, 15, 10, 20, 20, 20);
 
 function matrixGenerator(matrixSize, grassCount, grassEaterCount, predatorCount, waterCount, fireCount) {
     var matrix = [];
@@ -88,7 +88,6 @@ for (let y = 0; y < matrix.length; y++) {
 
 
 function main() {
-    
     for (let index = 0; index < grassArr.length; index++) {
         grassArr[index].mul();
     }
@@ -104,7 +103,18 @@ function main() {
     for (let index = 0; index < fireArr.length; index++) {
         fireArr[index].eat();
     }
+
+   
+    
+
     io.sockets.emit("matrix", matrix);
 }
 
-setInterval(main, 1000);
+
+io.on("connection", function(socket){
+    io.sockets.on("slow", function(){
+        clearInterval(interval);
+        interval = 200
+    })
+})
+setInterval(main, interval);

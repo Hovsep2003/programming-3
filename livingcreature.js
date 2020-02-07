@@ -16,6 +16,7 @@ module.exports = class LivingCreature {
         ];
 
     }
+
     chooseCell(ch) {
         this.getNewDirections()
         var found = [];
@@ -30,6 +31,7 @@ module.exports = class LivingCreature {
         }
         return found;
     }
+
     getNewDirections() {
         this.directions = [
             [this.x - 1, this.y - 1],

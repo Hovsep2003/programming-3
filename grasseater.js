@@ -6,7 +6,7 @@ module.exports = class GrassEater extends LivingCreature {
     }
     mul() {
         var cells = this.chooseCell(0);
-        var rand = Math.floor(Math.random()* rand)
+        var rand = Math.floor(Math.random() * cells.length)
         var newCell = cells[rand]
         if (newCell) {
             let x = newCell[0];
@@ -26,10 +26,12 @@ module.exports = class GrassEater extends LivingCreature {
         }
     }
     eat() {
-        this.getNewDirections();
+        // this.getNewDirections();
         var cells = this.chooseCell(1);
-        var rand = Math.floor(Math.random()* rand)
-        var newCell = cells[rand]
+        var rand = Math.floor(Math.random() * cells.length)
+        var newCell = cells[rand];
+        
+        
         if (newCell) {
             this.energy += 5;
             let x = newCell[0];
@@ -51,13 +53,17 @@ module.exports = class GrassEater extends LivingCreature {
                 this.mul()
             }
         }
-        else { this.move() }
+        else { 
+            this.move() 
+        }
     }
+
     move() {
         this.energy--;
         var cells = this.chooseCell(0);
-        var rand = Math.floor(Math.random()* rand)
-        var newCell = cells[rand]
+        var rand = Math.floor(Math.random() * cells.length)
+        var newCell = cells[rand];
+
         if (newCell) {
             let x = newCell[0];
             let y = newCell[1];

@@ -2,6 +2,7 @@ var length = 20
 var side = 20
 var matrix = [];
 var socket = io();
+
 function setup() {
     createCanvas(length * side, length * side);
     background('grey');
@@ -9,12 +10,15 @@ function setup() {
     noStroke()
 }
 
-socket.on("matrix", drawm)
+socket.on("matrix", pahelmatrican)
+
 function pahelmatrican(m) {
     matrix = m;
+    
 }
-function drawm(matrix) {
-    console.log(matrix);
+
+function draw() {
+    
     
     for (let y = 0; y < matrix.length; y++) {
         const element = matrix[y];
@@ -42,4 +46,9 @@ function drawm(matrix) {
         }
     }
 
+}
+
+
+function multi(){
+    socket.emit("slow", null);
 }
