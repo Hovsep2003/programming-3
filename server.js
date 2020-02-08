@@ -16,14 +16,18 @@ let GrassEater = require("./GrassEater")
 let Predator = require("./Predator")
 let Water = require("./Water")
 let Fire = require("./Fire")
-let interval = 1000;
+
+
+
+
+
 grassArr = [];
 grassEaterArr = [];
 predatorArr = [];
 waterArr = [];
 fireArr = [];
 
-matrix = matrixGenerator(30, 15, 10, 20, 20, 20);
+matrix = matrixGenerator(30, 15, 10, 10, 10, 20);
 
 function matrixGenerator(matrixSize, grassCount, grassEaterCount, predatorCount, waterCount, fireCount) {
     var matrix = [];
@@ -106,15 +110,21 @@ function main() {
 
    
     
-
+    
     io.sockets.emit("matrix", matrix);
+    
 }
 
-
 io.on("connection", function(socket){
-    io.sockets.on("slow", function(){
-        clearInterval(interval);
-        interval = 200
-    })
-})
-setInterval(main, interval);
+    socket.on("boom", function(){
+    for(var y = 0; y < matrix.length; y++){
+        for(var x = 0; x < matrix[y].length; x++){
+            if
+        }
+
+    }
+       })
+       
+   })
+
+setInterval(main, 1000);

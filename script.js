@@ -49,6 +49,12 @@ function draw() {
 }
 
 
-function multi(){
-    socket.emit("slow", null);
+function slow(){
+    
+    socket.emit("boom");
+}
+function slow(){
+    console.log("tt");
+    
+    socket.emit("fast");
 }
