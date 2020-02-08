@@ -49,12 +49,13 @@ function draw() {
 }
 
 
-function slow(){
+function bomb(){
+    console.log('js');
     
     socket.emit("boom");
 }
-function slow(){
+function restartgame(){
     console.log("tt");
     
-    socket.emit("fast");
+    socket.emit("noric");
 }

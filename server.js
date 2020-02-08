@@ -27,7 +27,7 @@ predatorArr = [];
 waterArr = [];
 fireArr = [];
 
-matrix = matrixGenerator(30, 15, 10, 10, 10, 20);
+matrix = matrixGenerator(30, 15, 50, 50, 50, 50);
 
 function matrixGenerator(matrixSize, grassCount, grassEaterCount, predatorCount, waterCount, fireCount) {
     var matrix = [];
@@ -91,7 +91,7 @@ for (let y = 0; y < matrix.length; y++) {
 }
 
 
-function main() {
+function game() {
     for (let index = 0; index < grassArr.length; index++) {
         grassArr[index].mul();
     }
@@ -107,24 +107,129 @@ function main() {
     for (let index = 0; index < fireArr.length; index++) {
         fireArr[index].eat();
     }
-
-   
-    
-    
     io.sockets.emit("matrix", matrix);
-    
 }
 
-io.on("connection", function(socket){
-    socket.on("boom", function(){
-    for(var y = 0; y < matrix.length; y++){
-        for(var x = 0; x < matrix[y].length; x++){
-            if
+var rows = 35
+var colums = 35
+
+function restart(){
+grassArr = [];
+grassEaterArr = [];
+predatorArr = [];
+waterArr = [];
+fireArr = [];
+matrix = [];
+for(var y = 0; y < rows; y++){
+    matrix[y] = [];
+    for(var x = 0; x , colums; x++){
+        var a = Math.floor(Math.random() * 100);
+        if(a >= 50 && a < 55){
+            matrix[y][x] = 1;
         }
-
+        else if(a >= 60 && a < 70){
+            matrix[y][x] = 2;
+        }
+        else if(a >= 70 && a < 80){
+            matrix[y][x] = 3;
+        }
+        else if(a >= 80 && a < 90){
+            matrix[y][x] = 4
+        }
+        else if(a >= 90 && a < 100){
+            matrix[y][x] = 5;
+        }
+        else {
+            matrix[y][x] = 0;
+        }
     }
-       })
-       
-   })
+}
+for(var y = 0; y < matrix.length; y++){
+    for(var x = 0; x < matrix.length; x++){
+        if(matrix[y][x] == 1){
+            var grass = new Grass(x, y, 1)
+            grassArr.push(grass)
+        }
+        else if(matrix[y][x] == 2){
+            var grer = new GrassEater(x, y, 2)
+            grassEaterArr.push(grer)
+        }
+        else if(matrix[y][x] == 3){
+            var pr = new Predator(x, y, 3)
+            predatorArr.push(pr)
+        }
+        else if(matrix[y][x] == 4){
+            var water = new Water(x, y, 4)
+            waterArr.push(water)
+        }
+        else if(matrix[y][x] == 5){
+            var fire = new Fire(x, y, 5)
+            fireArr.push(fire)
+        }
+    }
+}
+}
+var obj = {"info" : [] };
 
-setInterval(main, 1000);
+function main(){
+    var file = "Statics.json";
+    obj.info.push({"cnvac xoteri qanak" : grassHashiv})
+    console.log(obj);
+    fs.writeFileSync(file, JSON.stringify(obj,null,3))
+    console.log(JSON.stringify(obj));
+}
+setInterval(main, 6000)
+io.on("connection", function (socket) {
+    socket.on("boom", function () {
+        console.log("jku");
+        
+        for (var y = 0; y < matrix.length; y++) {
+            for (var x = 0; x < matrix.length; x++) {
+                if (x < 12 && y < 12) {
+                    if (matrix[y][x] = 1) {
+                        for (var i in grassArr) {
+                            if (grassArr[i].x == x && grassArr[i].y == y) {
+                                grassArr.splice(i, 1)
+                            }
+                        }
+                    }
+                    if (matrix[y][x] = 2) {
+                        for (var i in grassEaterArr) {
+                            if (grassEaterArr[i].x == x && grassEaterArr[i].y == y) {
+                                grassEaterArr.splice(i, 1)
+                            }
+                        }
+                    }
+                    if (matrix[y][x] = 3) {
+                        for (var i in predatorArr) {
+                            if (predatorArr[i].x == x && predatorArr[i].y == y) {
+                                predatorArr.splice(i, 1)
+                            }
+                        }
+                    }
+                    if (matrix[y][x] = 4) {
+                        for (var i in waterArr) {
+                            if (waterArr[i].x == x && waterArr[i].y == y) {
+                                waterArr.splice(i, 1)
+                            }
+                        }
+                    }
+                    if (matrix[y][x] = 5) {
+                        for (var i in fireArr) {
+                            if (fireArr[i].x == x && fireArr[i].y == y) {
+                                fireArr.splice(i, 1)
+                            }
+                        }
+                    }
+                    matrix[y][x] = 0;
+
+                }
+            }
+        }
+    })
+    socket.on("noric", function(){
+        restart();
+    })
+})
+
+setInterval(game, 1000);
