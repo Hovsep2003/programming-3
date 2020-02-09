@@ -6,6 +6,7 @@ module.exports = class Water extends LivingCreature {
     }
 
     mul() {
+        waterHashiv++
         this.life++;
         var cells = this.chooseCell(0);
         var rand = Math.floor(Math.random() * cells.length)
@@ -20,6 +21,7 @@ module.exports = class Water extends LivingCreature {
         }
     }
     eat() {
+        
         this.getNewDirections();
         var cells = this.chooseCell(1).concat(this.chooseCell(2)).concat(this.chooseCell(3)).concat(this.chooseCell(5));
         var rand = Math.floor(Math.random() * cells.length)

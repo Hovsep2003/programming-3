@@ -6,6 +6,7 @@ module.exports = class Fire extends LivingCreature {
     }
 
     mul() {
+        fireHashiv++
         this.life++
         var cells = this.chooseCell(0).concat(this.chooseCell(1)).concat(this.chooseCell(2)).concat(this.chooseCell(3));
         var rand = Math.floor(Math.random() * cells.length)
@@ -35,6 +36,7 @@ module.exports = class Fire extends LivingCreature {
         }
     }
     die() {
+        fireDie++
         matrix[this.y][this.x] = 0;
         for (let index = 0; index < fireArr.length; index++) {
             if (fireArr[index].x == this.x && fireArr[index].y == this.y) {

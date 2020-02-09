@@ -19,6 +19,7 @@ module.exports = class GrassEater extends LivingCreature {
         }
     }
     die() {
+        grassEaterDie++
         matrix[this.y][this.x] = 0;
         for (let index = 0; index < grassEaterArr.length; index++) {
             if (grassEaterArr[index].x == this.x && grassEaterArr[index].y == this.y) {

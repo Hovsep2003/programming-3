@@ -20,6 +20,7 @@ module.exports = class Predator extends LivingCreature {
         }
     }
     die() {
+        predatorDie++
         matrix[this.y][this.x] = 0;
         for (let index = 0; index < predatorArr.length; index++) {
             if (predatorArr[index].x == this.x && predatorArr[index].y == this.y) {

@@ -54,7 +54,7 @@ function boom(){
     
     socket.emit("boom");
 }
-function restart(){
+function restartgame(){
     console.log("tt");
     
     socket.emit("noric");
