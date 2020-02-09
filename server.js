@@ -27,6 +27,10 @@ predatorArr = [];
 waterArr = [];
 fireArr = [];
 
+grassHashiv = 0;
+grassEaterHashiv = 0;
+predatorHashiv = 0;
+
 matrix = matrixGenerator(30, 15, 50, 50, 50, 50);
 
 function matrixGenerator(matrixSize, grassCount, grassEaterCount, predatorCount, waterCount, fireCount) {
@@ -65,19 +69,26 @@ function matrixGenerator(matrixSize, grassCount, grassEaterCount, predatorCount,
     return matrix
 }
 
+
+
+
+
 for (let y = 0; y < matrix.length; y++) {
     for (let x = 0; x < matrix[y].length; x++) {
         if (matrix[y][x] == 1) {
             let grass = new Grass(x, y);
             grassArr.push(grass);
+            grassHashiv++
         }
         else if (matrix[y][x] == 2) {
             let grassEater = new GrassEater(x, y);
             grassEaterArr.push(grassEater);
+            grassEaterHashiv++
         }
         else if (matrix[y][x] == 3) {
             let predator = new Predator(x, y);
             predatorArr.push(predator);
+            predatorHashiv++;
         }
         else if (matrix[y][x] == 4) {
             let water = new Water(x, y);
@@ -169,16 +180,18 @@ for(var y = 0; y < matrix.length; y++){
     }
 }
 }
-var obj = {"info" : [] };
+// var obj = {"info" : [] };
 
-function main(){
-    var file = "Statics.json";
-    obj.info.push({"cnvac xoteri qanak" : grassHashiv})
-    console.log(obj);
-    fs.writeFileSync(file, JSON.stringify(obj,null,3))
-    console.log(JSON.stringify(obj));
-}
-setInterval(main, 6000)
+// function main(){
+//     var file = "Statics.json";
+//     obj.info.push({"cnvac xoteri qanak" : grassHashiv})
+//     obj.info.push({"cnvac xotakerneri qanak" : grassEaterHashiv})
+//     obj.info.push({"cnvac gishatichneri qanak" : predatorHashiv})
+//     console.log(obj);
+//     fs.writeFileSync(file, JSON.stringify(obj,null,3))
+//     console.log(JSON.stringify(obj));
+// }
+// setInterval(main, 6000)
 io.on("connection", function (socket) {
     socket.on("boom", function () {
         console.log("jku");

@@ -6,6 +6,7 @@ module.exports = class Predator extends LivingCreature {
     }
 
     mul() {
+        predatorHashiv++;
         var cells = this.chooseCell(0);
         var rand = Math.floor(Math.random() * cells.length)
         var newCell = cells[rand]

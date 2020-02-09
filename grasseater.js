@@ -5,6 +5,7 @@ module.exports = class GrassEater extends LivingCreature {
         this.energy = 30;
     }
     mul() {
+        grassEaterHashiv++;
         var cells = this.chooseCell(0);
         var rand = Math.floor(Math.random() * cells.length)
         var newCell = cells[rand]

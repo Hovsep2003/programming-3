@@ -49,13 +49,13 @@ function draw() {
 }
 
 
-function bomb(){
+function boom(){
     console.log('js');
     
     socket.emit("boom");
 }
-function restartgame(){
+function restart(){
     console.log("tt");
     
     socket.emit("noric");
-}
+}                           
